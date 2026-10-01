@@ -2,15 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
-
-    <meta name="theme-color" content="#09090b">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#080812">
+    <meta name="description" content="WONDERS POWERFUL AI — your intelligent AI assistant.">
     <title>WONDERS POWERFUL AI</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,89 +13,59 @@
 
 <div class="app">
 
-    <!-- =========================
-         SIDEBAR
-    ========================== -->
-
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
 
-        <div class="sidebar-top">
+        <div class="sidebar-head">
 
             <div class="brand">
+                <div class="brand-mark">✦</div>
 
-                <div class="brand-logo">
-                    ✦
+                <div class="brand-copy">
+                    <strong>WONDERS</strong>
+                    <span>POWERFUL AI</span>
                 </div>
-
-                <div>
-                    <div class="brand-name">
-                        WONDERS POWERFUL AI
-                    </div>
-
-                    <div class="brand-subtitle">
-                        Your AI assistant
-                    </div>
-                </div>
-
             </div>
-
 
             <button
                 id="newChatBtn"
-                class="new-chat"
+                class="new-chat-btn"
                 type="button"
             >
-                <span class="new-chat-icon">
-                    ＋
-                </span>
-
-                <span>
-                    New chat
-                </span>
+                <span>＋</span>
+                <span>New chat</span>
             </button>
 
-
-            <div class="sidebar-label">
-                Recent
-            </div>
-
-
-            <div
-                id="chatHistory"
-                class="chat-history"
-            >
-
-                <div class="history-empty">
-                    No conversations yet
-                </div>
-
+            <div class="section-title">
+                Recent chats
             </div>
 
         </div>
 
+        <div
+            id="chatHistory"
+            class="chat-history"
+        >
+            <div class="history-empty">
+                Your conversations will appear here
+            </div>
+        </div>
 
-        <div class="sidebar-bottom">
+        <div class="sidebar-footer">
 
-            <div class="account">
+            <div class="account-card">
 
                 <div class="account-avatar">
                     W
                 </div>
 
-                <div class="account-info">
-
-                    <strong>
-                        Wonders
-                    </strong>
-
-                    <span>
-                        Free plan
-                    </span>
-
+                <div class="account-copy">
+                    <strong>Wonders</strong>
+                    <span>Free plan</span>
                 </div>
 
                 <button
-                    class="account-more"
+                    class="more-btn"
                     type="button"
                 >
                     •••
@@ -113,545 +78,411 @@
     </aside>
 
 
-    <!-- =========================
-         MAIN
-    ========================== -->
-
+    <!-- MAIN -->
     <main class="main">
 
-
         <!-- TOP BAR -->
-
         <header class="topbar">
 
             <div class="topbar-left">
 
-
                 <button
                     id="menuBtn"
-                    class="icon-btn menu-btn"
+                    class="top-icon-btn menu-btn"
                     type="button"
                     aria-label="Open menu"
                 >
                     ☰
                 </button>
 
-
                 <div class="mobile-brand">
+                    <div class="mobile-mark">✦</div>
 
-                    <div class="mini-logo">
-                        ✦
+                    <div>
+                        <strong>WONDERS</strong>
+                        <span>POWERFUL AI</span>
+                    </div>
+                </div>
+
+                <div class="model-status">
+
+                    <div class="online-dot"></div>
+
+                    <div>
+                        <strong>WONDERS POWERFUL AI</strong>
+                        <span>Online</span>
                     </div>
 
-                    <strong>
-                        WONDERS POWERFUL AI
-                    </strong>
-
-                </div>
-
-
-                <div class="desktop-model">
-
-                    <div class="status-dot"></div>
-
-                    <strong>
-                        WONDERS POWERFUL AI
-                    </strong>
-
-                    <span>
-                        Online
-                    </span>
-
                 </div>
 
             </div>
 
-
-            <div class="topbar-right">
-
-                <button
-                    id="clearBtn"
-                    class="icon-btn"
-                    type="button"
-                    title="New conversation"
-                    aria-label="New conversation"
-                >
-                    ＋
-                </button>
-
-            </div>
+            <button
+                id="clearBtn"
+                class="top-icon-btn"
+                type="button"
+                title="New conversation"
+                aria-label="New conversation"
+            >
+                ＋
+            </button>
 
         </header>
 
 
-
-        <!-- =========================
-             CHAT
-        ========================== -->
-
+        <!-- CHAT -->
         <section
-            class="chat"
             id="chatArea"
+            class="chat-area"
         >
 
-
             <!-- WELCOME -->
-
             <div
                 id="welcome"
                 class="welcome"
             >
 
-                <div class="welcome-logo">
-
-                    <div class="logo-glow"></div>
-
-                    <span>
-                        ✦
-                    </span>
-
+                <div class="hero-logo">
+                    <div class="hero-ring"></div>
+                    <div class="hero-core">✦</div>
                 </div>
 
+                <div class="hero-badge">
+                    <span></span>
+                    WONDERS POWERFUL AI
+                </div>
 
                 <h1>
-
-                    How can I help
-                    <span>
-                        you today?
-                    </span>
-
+                    What will we
+                    <span>create today?</span>
                 </h1>
 
-
                 <p>
-                    Ask WONDERS POWERFUL AI anything.
-                    Learn, code, create, solve problems
-                    and explore ideas.
+                    Ask questions, build projects, learn,
+                    code, solve problems and bring your ideas
+                    to life with WONDERS POWERFUL AI.
                 </p>
 
 
-                <!-- QUICK PROMPTS -->
-
-                <div class="quick-prompts">
-
+                <!-- QUICK CARDS -->
+                <div class="quick-grid">
 
                     <button
                         class="quick-card"
                         type="button"
-                        data-prompt="Explain something difficult to me in a simple way."
+                        data-prompt="Explain a difficult topic to me in a simple way."
                     >
-
-                        <div class="quick-icon">
+                        <div class="quick-card-icon purple">
                             ✦
                         </div>
 
                         <div>
-
-                            <strong>
-                                Explain
-                            </strong>
-
+                            <strong>Explain anything</strong>
                             <span>
                                 Make difficult topics simple
                             </span>
-
                         </div>
 
+                        <b>→</b>
                     </button>
-
 
 
                     <button
                         class="quick-card"
                         type="button"
-                        data-prompt="Help me write a website with HTML, CSS and JavaScript."
+                        data-prompt="Help me build a modern website using HTML, CSS and JavaScript."
                     >
-
-                        <div class="quick-icon">
+                        <div class="quick-card-icon blue">
                             &lt;/&gt;
                         </div>
 
                         <div>
-
-                            <strong>
-                                Code
-                            </strong>
-
+                            <strong>Build with code</strong>
                             <span>
-                                Build something with code
+                                Create websites and projects
                             </span>
-
                         </div>
 
+                        <b>→</b>
                     </button>
-
 
 
                     <button
                         class="quick-card"
                         type="button"
-                        data-prompt="Help me solve a mathematics problem step by step."
+                        data-prompt="Help me solve this mathematics problem step by step."
                     >
-
-                        <div class="quick-icon">
+                        <div class="quick-card-icon cyan">
                             ∑
                         </div>
 
                         <div>
-
-                            <strong>
-                                Learn
-                            </strong>
-
+                            <strong>Learn & solve</strong>
                             <span>
-                                Work through a problem
+                                Work through problems together
                             </span>
-
                         </div>
 
+                        <b>→</b>
                     </button>
-
 
 
                     <button
                         class="quick-card"
                         type="button"
-                        data-prompt="Give me some creative ideas for a new project."
+                        data-prompt="Give me creative ideas for a new technology project."
                     >
-
-                        <div class="quick-icon">
+                        <div class="quick-card-icon pink">
                             ◇
                         </div>
 
                         <div>
-
-                            <strong>
-                                Create
-                            </strong>
-
+                            <strong>Create ideas</strong>
                             <span>
-                                Generate new ideas
+                                Turn ideas into possibilities
                             </span>
-
                         </div>
 
+                        <b>→</b>
                     </button>
-
 
                 </div>
 
             </div>
 
 
-
             <!-- MESSAGES -->
-
             <div
                 id="messages"
                 class="messages"
             ></div>
 
-
         </section>
 
 
-
-        <!-- =========================
-             COMPOSER
-        ========================== -->
-
+        <!-- COMPOSER -->
         <footer class="composer-area">
 
+            <div class="composer-shell">
 
-            <div class="composer">
+                <div class="composer">
 
-
-                <!-- AI TOOLS -->
-
-                <div class="tools-wrapper">
-
-                    <button
-                        id="attachBtn"
-                        class="composer-btn"
-                        type="button"
-                        title="AI Tools"
-                        aria-label="Open AI tools"
-                    >
-                        ＋
-                    </button>
-
-
-                    <!-- TOOLS MENU -->
-
-                    <div
-                        id="toolsMenu"
-                        class="tools-menu"
-                    >
-
-
-                        <!-- CREATE IMAGE -->
+                    <!-- TOOLS -->
+                    <div class="tools-wrapper">
 
                         <button
-                            id="createImageBtn"
-                            class="tool-item"
+                            id="attachBtn"
+                            class="composer-icon"
                             type="button"
+                            aria-label="Open AI tools"
+                            title="AI tools"
                         >
-
-                            <span class="tool-icon">
-                                🖼️
-                            </span>
-
-                            <span class="tool-text">
-
-                                <strong>
-                                    Create image
-                                </strong>
-
-                                <small>
-                                    Generate an image with AI
-                                </small>
-
-                            </span>
-
+                            ＋
                         </button>
 
 
-
-                        <!-- EDIT IMAGE -->
-
-                        <button
-                            id="editImageBtn"
-                            class="tool-item"
-                            type="button"
+                        <div
+                            id="toolsMenu"
+                            class="tools-menu"
                         >
 
-                            <span class="tool-icon">
-                                ✏️
-                            </span>
-
-                            <span class="tool-text">
-
-                                <strong>
-                                    Edit image
-                                </strong>
-
-                                <small>
-                                    Upload an image and edit it
-                                </small>
-
-                            </span>
-
-                        </button>
+                            <div class="tools-title">
+                                AI TOOLS
+                            </div>
 
 
+                            <button
+                                id="createImageBtn"
+                                class="tool-item"
+                                type="button"
+                            >
+                                <span class="tool-symbol image-symbol">
+                                    ✦
+                                </span>
 
-                        <!-- UPLOAD FILE -->
+                                <span class="tool-copy">
+                                    <strong>Create image</strong>
+                                    <small>
+                                        Generate an image with AI
+                                    </small>
+                                </span>
+                            </button>
 
-                        <button
-                            id="uploadFileBtn"
-                            class="tool-item"
-                            type="button"
-                        >
 
-                            <span class="tool-icon">
-                                📎
-                            </span>
+                            <button
+                                id="editImageBtn"
+                                class="tool-item"
+                                type="button"
+                            >
+                                <span class="tool-symbol edit-symbol">
+                                    ✎
+                                </span>
 
-                            <span class="tool-text">
+                                <span class="tool-copy">
+                                    <strong>Edit image</strong>
+                                    <small>
+                                        Edit an uploaded image
+                                    </small>
+                                </span>
+                            </button>
 
-                                <strong>
-                                    Upload file
-                                </strong>
 
-                                <small>
-                                    Add a file to your conversation
-                                </small>
+                            <button
+                                id="uploadFileBtn"
+                                class="tool-item"
+                                type="button"
+                            >
+                                <span class="tool-symbol file-symbol">
+                                    ↑
+                                </span>
 
-                            </span>
+                                <span class="tool-copy">
+                                    <strong>Upload file</strong>
+                                    <small>
+                                        Add a file to your chat
+                                    </small>
+                                </span>
+                            </button>
 
-                        </button>
-
+                        </div>
 
                     </div>
+
+
+                    <!-- INPUT -->
+                    <textarea
+                        id="messageInput"
+                        rows="1"
+                        autocomplete="off"
+                        placeholder="Message WONDERS POWERFUL AI..."
+                        aria-label="Message WONDERS POWERFUL AI"
+                    ></textarea>
+
+
+                    <!-- SEND -->
+                    <button
+                        id="sendBtn"
+                        class="send-btn"
+                        type="button"
+                        aria-label="Send message"
+                    >
+                        ↑
+                    </button>
 
                 </div>
 
 
-
-                <!-- MESSAGE INPUT -->
-
-                <textarea
-                    id="messageInput"
-                    rows="1"
-                    autocomplete="off"
-                    placeholder="Message WONDERS POWERFUL AI..."
-                    aria-label="Message WONDERS POWERFUL AI"
-                ></textarea>
-
-
-
-                <!-- SEND -->
-
-                <button
-                    id="sendBtn"
-                    class="send-btn"
-                    type="button"
-                    aria-label="Send message"
-                >
-
+                <div class="composer-bottom">
                     <span>
-                        ↑
+                        WONDERS POWERFUL AI can make mistakes.
                     </span>
 
-                </button>
-
-
-            </div>
-
-
-            <div class="composer-info">
-
-                <span>
-                    WONDERS POWERFUL AI can make mistakes.
-                    Check important information.
-                </span>
+                    <span class="secure-label">
+                        ✦ AI ASSISTANT
+                    </span>
+                </div>
 
             </div>
-
 
         </footer>
-
 
     </main>
 
 </div>
 
 
-
-<!-- =========================
-     MOBILE OVERLAY
-========================== -->
-
+<!-- MOBILE OVERLAY -->
 <div
     id="overlay"
     class="overlay"
 ></div>
 
 
-
-<!-- =========================
-     IMAGE GENERATION MODAL
-========================== -->
-
+<!-- IMAGE GENERATION MODAL -->
 <div
     id="imageModal"
     class="image-modal"
 >
 
-
-    <div class="image-modal-content">
-
-
-        <!-- CLOSE -->
+    <div class="image-modal-box">
 
         <button
             id="closeImageModal"
-            class="image-modal-close"
+            class="modal-close"
             type="button"
-            aria-label="Close image generator"
+            aria-label="Close"
         >
             ×
         </button>
 
 
+        <div class="modal-heading">
 
-        <!-- HEADER -->
-
-        <div class="image-modal-header">
-
-
-            <div class="image-modal-icon">
+            <div class="modal-icon">
                 ✦
             </div>
 
-
             <div>
+                <div class="modal-eyebrow">
+                    WONDERS POWERFUL AI
+                </div>
 
                 <h2>
                     Create an image
                 </h2>
 
                 <p>
-                    Describe what you want
-                    WONDERS POWERFUL AI to create.
+                    Describe your vision and let AI bring it to life.
                 </p>
-
             </div>
-
 
         </div>
 
 
+        <label
+            class="prompt-label"
+            for="imagePrompt"
+        >
+            YOUR PROMPT
+        </label>
 
-        <!-- PROMPT -->
 
         <textarea
             id="imagePrompt"
             class="image-prompt"
-            placeholder="Example: A futuristic city at night, cinematic lighting..."
             rows="5"
+            placeholder="Example: A futuristic Accra skyline at night, cinematic lighting, ultra realistic..."
             aria-label="Image prompt"
         ></textarea>
 
-
-
-        <!-- GENERATE -->
 
         <button
             id="generateImageBtn"
             class="generate-image-btn"
             type="button"
         >
-
-            <span>
-                ✦
-            </span>
-
+            <span>✦</span>
             Generate image
-
         </button>
 
 
-
-        <!-- STATUS -->
-
         <div
             id="imageGenerationStatus"
-            class="image-generation-status"
+            class="image-status"
         ></div>
 
-
-
-        <!-- GENERATED IMAGE -->
 
         <div
             id="generatedImageContainer"
             class="generated-image-container"
         ></div>
 
-
     </div>
-
 
 </div>
 
 
-
-<!-- =========================
-     JAVASCRIPT
-========================== -->
-
 <script src="script.js"></script>
 
 </body>
-    </html>
+            </html>
