@@ -2,104 +2,234 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#09090b">
     <title>Nova AI</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="app">
+<div class="app">
 
-        <!-- Sidebar -->
-        <aside class="sidebar">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
 
-            <div class="logo">
-                ✦ Nova AI
-            </div>
+        <div class="sidebar-top">
 
-            <button id="newChatBtn">
-                + New Chat
-            </button>
+            <div class="brand">
+                <div class="brand-logo">✦</div>
 
-            <div class="recent">
-                <p>Recent chats</p>
-
-                <div class="chat">
-                    💬 New conversation
+                <div>
+                    <div class="brand-name">Nova AI</div>
+                    <div class="brand-subtitle">Your AI assistant</div>
                 </div>
             </div>
 
-        </aside>
+            <button id="newChatBtn" class="new-chat">
+                <span class="new-chat-icon">＋</span>
+                <span>New chat</span>
+            </button>
+
+            <div class="sidebar-label">Recent</div>
+
+            <div id="chatHistory" class="chat-history">
+                <div class="history-empty">
+                    No conversations yet
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <div class="account">
+                <div class="account-avatar">W</div>
+
+                <div class="account-info">
+                    <strong>Wonders</strong>
+                    <span>Free plan</span>
+                </div>
+
+                <button class="account-more">•••</button>
+            </div>
+
+        </div>
+
+    </aside>
 
 
-        <!-- Main Chat -->
-        <main class="main">
+    <!-- MAIN CHAT -->
+    <main class="main">
 
-            <header class="topbar">
+        <!-- TOP BAR -->
+        <header class="topbar">
 
-                <button id="menuBtn">
+            <div class="topbar-left">
+
+                <button
+                    id="menuBtn"
+                    class="icon-btn menu-btn"
+                    aria-label="Open menu"
+                >
                     ☰
                 </button>
 
-                <h2>Nova AI</h2>
-
-            </header>
-
-
-            <section class="chat-area" id="chatArea">
-
-                <div class="welcome" id="welcome">
-
-                    <div class="nova-icon">
-                        ✦
-                    </div>
-
-                    <h1>How can I help you?</h1>
-
-                    <p>
-                        Ask Nova anything.
-                    </p>
-
+                <div class="mobile-brand">
+                    <div class="mini-logo">✦</div>
+                    <strong>Nova AI</strong>
                 </div>
 
+                <div class="desktop-model">
+                    <div class="status-dot"></div>
+                    <strong>Nova AI</strong>
+                    <span>Online</span>
+                </div>
 
-                <div id="messages"></div>
+            </div>
 
-            </section>
+            <div class="topbar-right">
+
+                <button
+                    id="clearBtn"
+                    class="icon-btn"
+                    title="New conversation"
+                >
+                    ＋
+                </button>
+
+            </div>
+
+        </header>
 
 
-            <!-- Message Box -->
-            <div class="input-area">
+        <!-- CHAT -->
+        <section class="chat" id="chatArea">
 
-                <div class="input-box">
+            <!-- EMPTY STATE -->
+            <div id="welcome" class="welcome">
 
-                    <textarea
-                        id="messageInput"
-                        placeholder="Message Nova AI..."
-                        rows="1"
-                    ></textarea>
+                <div class="welcome-logo">
+                    <div class="logo-glow"></div>
+                    <span>✦</span>
+                </div>
 
-                    <button id="sendBtn">
-                        ↑
+                <h1>
+                    How can I help
+                    <span>you today?</span>
+                </h1>
+
+                <p>
+                    Ask Nova anything. Learn, code, create,
+                    solve problems and explore ideas.
+                </p>
+
+                <div class="quick-prompts">
+
+                    <button
+                        class="quick-card"
+                        data-prompt="Explain something difficult to me in a simple way."
+                    >
+                        <div class="quick-icon">✦</div>
+                        <div>
+                            <strong>Explain</strong>
+                            <span>Make difficult topics simple</span>
+                        </div>
+                    </button>
+
+                    <button
+                        class="quick-card"
+                        data-prompt="Help me write a website with HTML, CSS and JavaScript."
+                    >
+                        <div class="quick-icon">&lt;/&gt;</div>
+                        <div>
+                            <strong>Code</strong>
+                            <span>Build something with code</span>
+                        </div>
+                    </button>
+
+                    <button
+                        class="quick-card"
+                        data-prompt="Help me solve a mathematics problem step by step."
+                    >
+                        <div class="quick-icon">∑</div>
+                        <div>
+                            <strong>Learn</strong>
+                            <span>Work through a problem</span>
+                        </div>
+                    </button>
+
+                    <button
+                        class="quick-card"
+                        data-prompt="Give me some creative ideas for a new project."
+                    >
+                        <div class="quick-icon">◇</div>
+                        <div>
+                            <strong>Create</strong>
+                            <span>Generate new ideas</span>
+                        </div>
                     </button>
 
                 </div>
 
-                <p>
-                    Nova AI can make mistakes. Check important information.
-                </p>
+            </div>
+
+
+            <!-- MESSAGES -->
+            <div id="messages" class="messages"></div>
+
+        </section>
+
+
+        <!-- COMPOSER -->
+        <footer class="composer-area">
+
+            <div class="composer">
+
+                <button
+                    id="attachBtn"
+                    class="composer-btn"
+                    type="button"
+                    title="More options"
+                >
+                    ＋
+                </button>
+
+                <textarea
+                    id="messageInput"
+                    rows="1"
+                    autocomplete="off"
+                    placeholder="Message Nova..."
+                    aria-label="Message Nova"
+                ></textarea>
+
+                <button
+                    id="sendBtn"
+                    class="send-btn"
+                    type="button"
+                    aria-label="Send message"
+                >
+                    <span>↑</span>
+                </button>
 
             </div>
 
-        </main>
+            <div class="composer-info">
+                <span>Nova AI can make mistakes. Check important information.</span>
+            </div>
 
-    </div>
+        </footer>
+
+    </main>
+
+</div>
 
 
-    <script src="script.js"></script>
+<!-- MOBILE OVERLAY -->
+<div id="overlay" class="overlay"></div>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
