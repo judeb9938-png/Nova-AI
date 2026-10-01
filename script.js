@@ -33,6 +33,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const quickCards =
         document.querySelectorAll(".quick-card");
 
+    // AI TOOLS
+    const attachBtn =
+        document.getElementById("attachBtn");
+
+    const toolsMenu =
+        document.getElementById("toolsMenu");
+
+    const createImageBtn =
+        document.getElementById("createImageBtn");
+
+    const editImageBtn =
+        document.getElementById("editImageBtn");
+
+    const uploadFileBtn =
+        document.getElementById("uploadFileBtn");
+
+    // IMAGE MODAL
+    const imageModal =
+        document.getElementById("imageModal");
+
+    const closeImageModal =
+        document.getElementById("closeImageModal");
+
+    const imagePrompt =
+        document.getElementById("imagePrompt");
+
+    const generateImageBtn =
+        document.getElementById("generateImageBtn");
+
+    const imageGenerationStatus =
+        document.getElementById("imageGenerationStatus");
+
+    const generatedImageContainer =
+        document.getElementById("generatedImageContainer");
+
 
     let conversation = [];
     let busy = false;
@@ -51,40 +86,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!text) return;
 
-
         busy = true;
 
         sendBtn.disabled = true;
 
-
-        // Hide welcome screen
         welcome.style.display = "none";
 
+        addMessage(text, "user");
 
-        // Add user message
-        addMessage(
-            text,
-            "user"
-        );
-
-
-        // Clear input
         messageInput.value = "";
 
         resizeInput();
 
-
-        // Save conversation
         conversation.push({
             role: "user",
             content: text
         });
 
-
-        // Add thinking message
         const thinking =
             addThinking();
-
 
         try {
 
@@ -137,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            // Remove thinking
             thinking.remove();
 
 
@@ -158,20 +177,18 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!reply) {
 
                 throw new Error(
-                    "Nova AI returned an empty response."
+                    "WONDERS POWERFUL AI returned an empty response."
                 );
 
             }
 
 
-            // Add Nova response
             addMessage(
                 reply,
                 "nova"
             );
 
 
-            // Save Nova response
             conversation.push({
                 role: "assistant",
                 content: reply
@@ -184,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
 
             console.error(
-                "Nova error:",
+                "AI error:",
                 error
             );
 
@@ -269,7 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name.textContent =
             sender === "user"
                 ? "You"
-                : "Nova AI";
+                : "WONDERS POWERFUL AI";
 
 
         const messageText =
@@ -300,7 +317,6 @@ document.addEventListener("DOMContentLoaded", () => {
             messageText
         );
 
-
         message.appendChild(
             avatar
         );
@@ -309,14 +325,11 @@ document.addEventListener("DOMContentLoaded", () => {
             content
         );
 
-
         messages.appendChild(
             message
         );
 
-
         scrollChat();
-
 
         return message;
 
@@ -345,7 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="message-content">
 
                 <div class="message-name">
-                    Nova AI
+                    WONDERS POWERFUL AI
                 </div>
 
                 <div class="message-text">
@@ -385,7 +398,6 @@ document.addEventListener("DOMContentLoaded", () => {
             escapeHTML(text);
 
 
-        // Code blocks
         html =
             html.replace(
                 /```([\s\S]*?)```/g,
@@ -413,7 +425,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        // Bold
         html =
             html.replace(
                 /\*\*(.*?)\*\*/g,
@@ -421,7 +432,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        // Italic
         html =
             html.replace(
                 /\*(.*?)\*/g,
@@ -429,7 +439,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        // Line breaks
         html =
             html.replace(
                 /\n/g,
@@ -634,6 +643,375 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================
+       AI TOOLS MENU
+    ========================= */
+
+    if (attachBtn && toolsMenu) {
+
+        attachBtn.addEventListener(
+            "click",
+            (event) => {
+
+                event.stopPropagation();
+
+                toolsMenu.classList.toggle(
+                    "open"
+                );
+
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    !toolsMenu.contains(event.target) &&
+                    event.target !== attachBtn
+                ) {
+
+                    toolsMenu.classList.remove(
+                        "open"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       OPEN IMAGE MODAL
+    ========================= */
+
+    function openImageModal() {
+
+        if (!imageModal) return;
+
+        imageModal.classList.add("open");
+
+        imagePrompt.value = "";
+
+        imageGenerationStatus.textContent = "";
+
+        generatedImageContainer.innerHTML = "";
+
+        setTimeout(() => {
+            imagePrompt.focus();
+        }, 100);
+
+    }
+
+
+    /* =========================
+       CLOSE IMAGE MODAL
+    ========================= */
+
+    function closeImageModalWindow() {
+
+        if (!imageModal) return;
+
+        imageModal.classList.remove("open");
+
+    }
+
+
+    if (createImageBtn) {
+
+        createImageBtn.addEventListener(
+            "click",
+            () => {
+
+                if (toolsMenu) {
+                    toolsMenu.classList.remove(
+                        "open"
+                    );
+                }
+
+                openImageModal();
+
+            }
+        );
+
+    }
+
+
+    if (closeImageModal) {
+
+        closeImageModal.addEventListener(
+            "click",
+            closeImageModalWindow
+        );
+
+    }
+
+
+    if (imageModal) {
+
+        imageModal.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    event.target === imageModal
+                ) {
+                    closeImageModalWindow();
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       GENERATE IMAGE
+    ========================= */
+
+    async function generateImage() {
+
+        if (!imagePrompt) return;
+
+        const prompt =
+            imagePrompt.value.trim();
+
+
+        if (!prompt) {
+
+            imageGenerationStatus.textContent =
+                "Please describe the image you want.";
+
+            imagePrompt.focus();
+
+            return;
+
+        }
+
+
+        if (busy) return;
+
+
+        busy = true;
+
+        generateImageBtn.disabled = true;
+
+
+        imageGenerationStatus.textContent =
+            "Creating your image...";
+
+
+        generatedImageContainer.innerHTML = "";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/generate-image",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                prompt
+                            })
+                    }
+                );
+
+
+            const contentType =
+                response.headers.get(
+                    "content-type"
+                ) || "";
+
+
+            let data;
+
+
+            if (
+                contentType.includes(
+                    "application/json"
+                )
+            ) {
+
+                data =
+                    await response.json();
+
+            } else {
+
+                data = {
+                    error:
+                        await response.text()
+                };
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    `Image generation failed (${response.status})`
+                );
+
+            }
+
+
+            if (!data.image) {
+
+                throw new Error(
+                    "No image was returned by the AI."
+                );
+
+            }
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.src =
+                data.image;
+
+            image.alt =
+                prompt;
+
+            image.className =
+                "generated-image";
+
+
+            generatedImageContainer.appendChild(
+                image
+            );
+
+
+            imageGenerationStatus.textContent =
+                "Image created successfully.";
+
+
+        } catch (error) {
+
+            console.error(
+                "IMAGE ERROR:",
+                error
+            );
+
+
+            imageGenerationStatus.textContent =
+                "⚠️ " + error.message;
+
+
+        } finally {
+
+            busy = false;
+
+            generateImageBtn.disabled = false;
+
+        }
+
+    }
+
+
+    if (generateImageBtn) {
+
+        generateImageBtn.addEventListener(
+            "click",
+            generateImage
+        );
+
+    }
+
+
+    /* =========================
+       IMAGE PROMPT ENTER
+    ========================= */
+
+    if (imagePrompt) {
+
+        imagePrompt.addEventListener(
+            "keydown",
+            (event) => {
+
+                if (
+                    event.key === "Enter" &&
+                    event.ctrlKey
+                ) {
+
+                    event.preventDefault();
+
+                    generateImage();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       EDIT IMAGE
+    ========================= */
+
+    if (editImageBtn) {
+
+        editImageBtn.addEventListener(
+            "click",
+            () => {
+
+                if (toolsMenu) {
+                    toolsMenu.classList.remove(
+                        "open"
+                    );
+                }
+
+                alert(
+                    "Image editing is the next feature we will connect."
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       FILE UPLOAD
+    ========================= */
+
+    if (uploadFileBtn) {
+
+        uploadFileBtn.addEventListener(
+            "click",
+            () => {
+
+                if (toolsMenu) {
+                    toolsMenu.classList.remove(
+                        "open"
+                    );
+                }
+
+                alert(
+                    "File uploads are the next feature we will connect."
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================
        NEW CHAT
     ========================= */
 
@@ -750,27 +1128,4 @@ document.addEventListener("DOMContentLoaded", () => {
             "history-item";
 
 
-        item.textContent =
-            text;
-
-
-        item.title =
-            text;
-
-
-        chatHistory.prepend(
-            item
-        );
-
-    }
-
-
-    // Initial focus
-    messageInput.focus();
-
-
-    console.log(
-        "Nova AI frontend loaded successfully."
-    );
-
-});
+        item.textContent
