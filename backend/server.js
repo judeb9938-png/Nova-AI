@@ -38,19 +38,15 @@ app.post("/api/chat", async (req, res) => {
             "https://openrouter.ai/api/v1/chat/completions",
             {
                 method: "POST",
-
                 headers: {
                     "Authorization":
                         `Bearer ${process.env.OPENROUTER_API_KEY}`,
                     "Content-Type": "application/json",
                     "X-Title": "WONDERS POWERFUL AI"
                 },
-
                 body: JSON.stringify({
                     model: "openai/gpt-5-mini",
-
                     max_tokens: 1000,
-
                     messages: [
                         {
                             role: "system",
@@ -80,12 +76,13 @@ app.post("/api/chat", async (req, res) => {
 
         if (!reply) {
             return res.status(500).json({
-                error: "WONDERS POWERFUL AI received an empty response."
+                error:
+                    "WONDERS POWERFUL AI received an empty response."
             });
         }
 
         res.json({
-            reply: reply
+            reply
         });
 
     } catch (error) {
@@ -116,17 +113,14 @@ app.post("/api/generate-image", async (req, res) => {
             "https://openrouter.ai/api/v1/images",
             {
                 method: "POST",
-
                 headers: {
                     "Authorization":
                         `Bearer ${process.env.OPENROUTER_API_KEY}`,
                     "Content-Type": "application/json",
                     "X-Title": "WONDERS POWERFUL AI"
                 },
-
                 body: JSON.stringify({
-                    model: "google/gemini-2.5-flash-image"
-                    ,
+                    model: "google/gemini-2.5-flash-image",
                     prompt: prompt.trim()
                 })
             }
@@ -144,35 +138,8 @@ app.post("/api/generate-image", async (req, res) => {
             });
         }
 
-        /*
-         * OpenRouter image responses can contain
-         * image data in the message content.
-         */
-        const message = data?.choices?.[0]?.message;
-
-        let imageData = null;
-
-        if (message?.images?.length) {
-            const image = message.images[0];
-
-            if (typeof image === "string") {
-                imageData = image;
-            } else if (image?.image_url?.url) {
-                imageData = image.image_url.url;
-            }
-        }
-
-        if (!imageData && Array.isArray(message?.content)) {
-            const imagePart = message.content.find(
-                part =>
-                    part?.type === "image_url" ||
-                    part?.type === "output_image"
-            );
-
-            if (imagePart?.image_url?.url) {
-                imageData = imagePart.image_url.url;
-            }
-        }
+        // OpenRouter returns generated images in data[0].b64_json
+        const imageData = data?.data?.[0]?.b64_json;
 
         if (!imageData) {
             console.error(
@@ -187,7 +154,7 @@ app.post("/api/generate-image", async (req, res) => {
         }
 
         res.json({
-            image: imageData
+            image: `data:image/png;base64,${imageData}`
         });
 
     } catch (error) {
