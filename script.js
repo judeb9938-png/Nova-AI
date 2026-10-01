@@ -34,9 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatHistory =
         document.getElementById("chatHistory");
 
-    const quickCards =
-        document.querySelectorAll(".quick-card");
-
 
     /* =========================
        AI TOOLS
@@ -57,9 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const uploadFileBtn =
         document.getElementById("uploadFileBtn");
 
+    const imageFileInput =
+        document.getElementById("imageFileInput");
+
 
     /* =========================
-       IMAGE GENERATOR
+       IMAGE MODAL
     ========================= */
 
     const imageModal =
@@ -75,7 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("generateImageBtn");
 
     const imageGenerationStatus =
-        document.getElementById("imageGenerationStatus");
+        document.getElementById(
+            "imageGenerationStatus"
+        );
 
     const generatedImageContainer =
         document.getElementById(
@@ -92,6 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let chatBusy = false;
 
     let imageBusy = false;
+
+    let selectedImage = null;
 
 
     /* =========================
@@ -191,7 +195,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 thinking &&
                 thinking.isConnected
             ) {
+
                 thinking.remove();
+
             }
 
 
@@ -245,7 +251,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 thinking &&
                 thinking.isConnected
             ) {
+
                 thinking.remove();
+
             }
 
 
@@ -434,10 +442,6 @@ document.addEventListener("DOMContentLoaded", () => {
             escapeHTML(text);
 
 
-        /*
-         * CODE BLOCKS
-         */
-
         html =
             html.replace(
                 /```([\s\S]*?)```/g,
@@ -465,10 +469,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        /*
-         * BOLD
-         */
-
         html =
             html.replace(
                 /\*\*(.*?)\*\*/g,
@@ -476,20 +476,12 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        /*
-         * ITALIC
-         */
-
         html =
             html.replace(
                 /\*(.*?)\*/g,
                 "<em>$1</em>"
             );
 
-
-        /*
-         * NEWLINES
-         */
 
         html =
             html.replace(
@@ -528,7 +520,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener(
         "click",
-        async (event) => {
+        async event => {
 
             if (
                 !event.target.classList.contains(
@@ -630,7 +622,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     messageInput.addEventListener(
         "keydown",
-        (event) => {
+        event => {
 
             if (
                 event.key === "Enter" &&
@@ -663,8 +655,9 @@ document.addEventListener("DOMContentLoaded", () => {
        QUICK PROMPTS
     ========================= */
 
-    quickCards.forEach(
-        card => {
+    document
+        .querySelectorAll(".quick-card")
+        .forEach(card => {
 
             card.addEventListener(
                 "click",
@@ -685,8 +678,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
 
-        }
-    );
+        });
 
 
     /* =========================
@@ -737,7 +729,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================
-       IMAGE MODAL
+       OPEN IMAGE MODAL
     ========================= */
 
     function openImageModal() {
@@ -759,6 +751,9 @@ document.addEventListener("DOMContentLoaded", () => {
             "";
 
 
+        selectedImage = null;
+
+
         setTimeout(() => {
 
             imagePrompt.focus();
@@ -768,6 +763,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =========================
+       CLOSE IMAGE MODAL
+    ========================= */
+
     function closeImageModalWindow() {
 
         if (!imageModal) return;
@@ -776,34 +775,10 @@ document.addEventListener("DOMContentLoaded", () => {
             "open"
         );
 
-    }
-
-
-    /* =========================
-       CREATE IMAGE
-    ========================= */
-
-    if (createImageBtn) {
-
-        createImageBtn.addEventListener(
-            "click",
-            () => {
-
-                toolsMenu.classList.remove(
-                    "open"
-                );
-
-                openImageModal();
-
-            }
-        );
+        selectedImage = null;
 
     }
 
-
-    /* =========================
-       CLOSE IMAGE MODAL
-    ========================= */
 
     if (closeImageModal) {
 
@@ -828,6 +803,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     closeImageModalWindow();
 
                 }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       CREATE IMAGE
+    ========================= */
+
+    if (createImageBtn) {
+
+        createImageBtn.addEventListener(
+            "click",
+            () => {
+
+                toolsMenu.classList.remove(
+                    "open"
+                );
+
+                openImageModal();
 
             }
         );
@@ -991,18 +988,345 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    if (generateImageBtn) {
+    /* =========================
+       IMAGE UPLOAD
+    ========================= */
 
-        generateImageBtn.addEventListener(
+    if (
+        uploadFileBtn &&
+        imageFileInput
+    ) {
+
+        uploadFileBtn.addEventListener(
             "click",
-            generateImage
+            () => {
+
+                toolsMenu.classList.remove(
+                    "open"
+                );
+
+                imageFileInput.click();
+
+            }
+        );
+
+
+        imageFileInput.addEventListener(
+            "change",
+            event => {
+
+                const file =
+                    event.target.files[0];
+
+                if (!file) return;
+
+
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
+
+                    imageGenerationStatus.textContent =
+                        "Please select an image.";
+
+                    return;
+
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload = () => {
+
+                    selectedImage =
+                        reader.result;
+
+
+                    imagePrompt.value =
+                        "";
+
+
+                    imageGenerationStatus.textContent =
+                        "Image selected. Describe what you want to change.";
+
+
+                    generatedImageContainer.innerHTML =
+                        "";
+
+
+                    const preview =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    preview.src =
+                        selectedImage;
+
+                    preview.alt =
+                        "Selected image";
+
+                    preview.className =
+                        "generated-image";
+
+
+                    generatedImageContainer.appendChild(
+                        preview
+                    );
+
+
+                    imageModal.classList.add(
+                        "open"
+                    );
+
+
+                    setTimeout(() => {
+
+                        imagePrompt.focus();
+
+                    }, 100);
+
+                };
+
+
+                reader.readAsDataURL(file);
+
+            }
         );
 
     }
 
 
     /* =========================
-       IMAGE ENTER
+       EDIT IMAGE
+    ========================= */
+
+    async function editSelectedImage() {
+
+        if (!selectedImage) {
+
+            imageGenerationStatus.textContent =
+                "Select an image first.";
+
+            return;
+
+        }
+
+
+        const prompt =
+            imagePrompt.value.trim();
+
+
+        if (!prompt) {
+
+            imageGenerationStatus.textContent =
+                "Describe what you want to change.";
+
+            imagePrompt.focus();
+
+            return;
+
+        }
+
+
+        if (imageBusy) return;
+
+
+        imageBusy = true;
+
+        generateImageBtn.disabled = true;
+
+
+        imageGenerationStatus.textContent =
+            "Editing your image...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/edit-image",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                image:
+                                    selectedImage,
+                                prompt
+                            })
+                    }
+                );
+
+
+            const contentType =
+                response.headers.get(
+                    "content-type"
+                ) || "";
+
+
+            let data;
+
+
+            if (
+                contentType.includes(
+                    "application/json"
+                )
+            ) {
+
+                data =
+                    await response.json();
+
+            } else {
+
+                data = {
+                    error:
+                        await response.text()
+                };
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    `Image editing failed (${response.status})`
+                );
+
+            }
+
+
+            if (!data.image) {
+
+                throw new Error(
+                    "The AI returned no edited image."
+                );
+
+            }
+
+
+            selectedImage =
+                data.image;
+
+
+            generatedImageContainer.innerHTML =
+                "";
+
+
+            const editedImage =
+                document.createElement(
+                    "img"
+                );
+
+
+            editedImage.src =
+                data.image;
+
+            editedImage.alt =
+                "Edited image";
+
+            editedImage.className =
+                "generated-image";
+
+
+            generatedImageContainer.appendChild(
+                editedImage
+            );
+
+
+            imageGenerationStatus.textContent =
+                "Image edited successfully.";
+
+
+        } catch (error) {
+
+            console.error(
+                "EDIT IMAGE ERROR:",
+                error
+            );
+
+
+            imageGenerationStatus.textContent =
+                "⚠️ " +
+                error.message;
+
+
+        } finally {
+
+            imageBusy = false;
+
+            generateImageBtn.disabled =
+                false;
+
+        }
+
+    }
+
+
+    /* =========================
+       GENERATE / EDIT BUTTON
+    ========================= */
+
+    if (generateImageBtn) {
+
+        generateImageBtn.addEventListener(
+            "click",
+            () => {
+
+                if (selectedImage) {
+
+                    editSelectedImage();
+
+                } else {
+
+                    generateImage();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       EDIT IMAGE MENU BUTTON
+    ========================= */
+
+    if (editImageBtn) {
+
+        editImageBtn.addEventListener(
+            "click",
+            () => {
+
+                toolsMenu.classList.remove(
+                    "open"
+                );
+
+
+                if (imageFileInput) {
+
+                    imageFileInput.click();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       IMAGE GENERATION CTRL+ENTER
     ========================= */
 
     if (imagePrompt) {
@@ -1018,59 +1342,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     event.preventDefault();
 
-                    generateImage();
+
+                    if (selectedImage) {
+
+                        editSelectedImage();
+
+                    } else {
+
+                        generateImage();
+
+                    }
 
                 }
-
-            }
-        );
-
-    }
-
-
-    /* =========================
-       EDIT IMAGE
-    ========================= */
-
-    if (editImageBtn) {
-
-        editImageBtn.addEventListener(
-            "click",
-            () => {
-
-                toolsMenu.classList.remove(
-                    "open"
-                );
-
-
-                alert(
-                    "Image editing will be connected next."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =========================
-       FILE UPLOAD
-    ========================= */
-
-    if (uploadFileBtn) {
-
-        uploadFileBtn.addEventListener(
-            "click",
-            () => {
-
-                toolsMenu.classList.remove(
-                    "open"
-                );
-
-
-                alert(
-                    "File uploads will be connected next."
-                );
 
             }
         );
@@ -1102,22 +1385,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    newChatBtn.addEventListener(
-        "click",
-        () => {
+    if (newChatBtn) {
 
-            startNewChat();
+        newChatBtn.addEventListener(
+            "click",
+            () => {
 
-            closeMobileMenu();
+                startNewChat();
 
-        }
-    );
+                closeMobileMenu();
+
+            }
+        );
+
+    }
 
 
-    clearBtn.addEventListener(
-        "click",
-        startNewChat
-    );
+    if (clearBtn) {
+
+        clearBtn.addEventListener(
+            "click",
+            startNewChat
+        );
+
+    }
 
 
     /* =========================
@@ -1150,58 +1441,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    menuBtn.addEventListener(
-        "click",
-        openMobileMenu
-    );
+    if (menuBtn) {
 
-
-    overlay.addEventListener(
-        "click",
-        closeMobileMenu
-    );
-
-
-    /* =========================
-       MOBILE MENU
-    ========================= */
-
-    function openMobileMenu() {
-
-        sidebar.classList.add(
-            "open"
-        );
-
-        overlay.classList.add(
-            "open"
+        menuBtn.addEventListener(
+            "click",
+            openMobileMenu
         );
 
     }
 
 
-    function closeMobileMenu() {
+    if (overlay) {
 
-        sidebar.classList.remove(
-            "open"
-        );
-
-        overlay.classList.remove(
-            "open"
+        overlay.addEventListener(
+            "click",
+            closeMobileMenu
         );
 
     }
-
-
-    menuBtn.addEventListener(
-        "click",
-        openMobileMenu
-    );
-
-
-    overlay.addEventListener(
-        "click",
-        closeMobileMenu
-    );
 
 
     /* =========================
@@ -1217,7 +1474,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (empty) {
+
             empty.remove();
+
         }
 
 
@@ -1225,8 +1484,7 @@ document.addEventListener("DOMContentLoaded", () => {
             chatHistory.children.length >= 8
         ) {
 
-            chatHistory.lastElementChild
-                .remove();
+            chatHistory.lastElementChild.remove();
 
         }
 
