@@ -9,7 +9,47 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: "20mb" }));
 
-// Serve frontend
+// =========================
+// ROBOTS.TXT
+// =========================
+
+app.get("/robots.txt", (req, res) => {
+    res.type("text/plain");
+
+    res.send(
+`User-agent: *
+Allow: /
+
+Sitemap: https://nova-ai-1-b7hw.onrender.com/sitemap.xml`
+    );
+});
+
+
+// =========================
+// SITEMAP.XML
+// =========================
+
+app.get("/sitemap.xml", (req, res) => {
+    res.type("application/xml");
+
+    res.send(
+`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://nova-ai-1-b7hw.onrender.com/</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+</urlset>`
+    );
+});
+
+
+// =========================
+// SERVE FRONTEND
+// =========================
+
 app.use(express.static(path.join(__dirname, "..")));
 
 
@@ -71,8 +111,7 @@ app.post("/api/chat", async (req, res) => {
             }
         );
 
-        const data =
-            await response.json();
+        const data = await response.json();
 
         if (!response.ok) {
 
@@ -163,10 +202,8 @@ app.post("/api/generate-image", async (req, res) => {
                 }
             );
 
-
         const data =
             await response.json();
-
 
         if (!response.ok) {
 
@@ -182,10 +219,8 @@ app.post("/api/generate-image", async (req, res) => {
             });
         }
 
-
         const imageData =
             data?.data?.[0]?.b64_json;
-
 
         if (!imageData) {
 
@@ -204,12 +239,10 @@ app.post("/api/generate-image", async (req, res) => {
             });
         }
 
-
         res.json({
             image:
                 `data:image/png;base64,${imageData}`
         });
-
 
     } catch (error) {
 
@@ -240,7 +273,6 @@ app.post("/api/edit-image", async (req, res) => {
             prompt
         } = req.body;
 
-
         if (!image || !prompt) {
 
             return res.status(400).json({
@@ -248,7 +280,6 @@ app.post("/api/edit-image", async (req, res) => {
                     "Image and editing prompt are required."
             });
         }
-
 
         const response =
             await fetch(
@@ -300,10 +331,8 @@ app.post("/api/edit-image", async (req, res) => {
                 }
             );
 
-
         const data =
             await response.json();
-
 
         if (!response.ok) {
 
@@ -319,7 +348,6 @@ app.post("/api/edit-image", async (req, res) => {
             });
         }
 
-
         const editedImage =
             data
                 ?.choices?.[0]
@@ -327,7 +355,6 @@ app.post("/api/edit-image", async (req, res) => {
                 ?.images?.[0]
                 ?.image_url
                 ?.url;
-
 
         if (!editedImage) {
 
@@ -346,12 +373,10 @@ app.post("/api/edit-image", async (req, res) => {
             });
         }
 
-
         res.json({
             image:
                 editedImage
         });
-
 
     } catch (error) {
 
