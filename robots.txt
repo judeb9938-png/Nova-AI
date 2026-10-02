@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://nova-ai-1-b7hw.onrender.com/sitemap.xml
