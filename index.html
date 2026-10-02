@@ -972,6 +972,184 @@
     <div class="image-viewer-card">
 
         <button
+placeholder="Message WONDERS POWERFUL AI..."
+                        spellcheck="true"
+                    ></textarea>
+
+
+                    <!-- SEND BUTTON -->
+
+                    <button
+                        id="sendBtn"
+                        class="send-btn"
+                        type="button"
+                        aria-label="Send message"
+                        title="Send message"
+                    >
+                        ↑
+                    </button>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================
+     IMAGE GENERATION / EDIT MODAL
+========================================== -->
+
+<div
+    id="imageModal"
+    class="image-modal"
+    aria-hidden="true"
+>
+
+    <div class="image-modal-backdrop"></div>
+
+    <div class="image-modal-card">
+
+        <div class="image-modal-header">
+
+            <div>
+
+                <span class="image-modal-label">
+                    WONDERS POWERFUL AI
+                </span>
+
+                <h2 id="imageModalTitle">
+                    Create image
+                </h2>
+
+            </div>
+
+            <button
+                id="closeImageModal"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="image-modal-body">
+
+            <label
+                for="imagePrompt"
+                class="modal-label"
+            >
+                Describe your image
+            </label>
+
+            <textarea
+                id="imagePrompt"
+                class="image-prompt"
+                rows="4"
+                placeholder="Describe the image you want WONDERS POWERFUL AI to create..."
+            ></textarea>
+
+
+            <div
+                id="editImagePreview"
+                class="edit-image-preview"
+                hidden
+            >
+
+                <img
+                    id="editPreviewImg"
+                    src=""
+                    alt="Selected image"
+                >
+
+                <div>
+
+                    <strong>
+                        Image selected
+                    </strong>
+
+                    <span>
+                        Describe what you want changed.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="image-modal-actions">
+
+                <button
+                    id="cancelImageBtn"
+                    class="modal-secondary-btn"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    id="generateImageBtn"
+                    class="modal-primary-btn"
+                    type="button"
+                >
+                    <span id="generateImageText">
+                        Generate image
+                    </span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     HIDDEN FILE INPUTS
+========================================== -->
+
+<input
+    id="imageFileInput"
+    type="file"
+    accept="image/*"
+    hidden
+>
+
+<input
+    id="fileInput"
+    type="file"
+    hidden
+>
+
+
+
+<!-- =========================================
+     IMAGE VIEWER
+========================================== -->
+
+<div
+    id="imageViewer"
+    class="image-viewer"
+    aria-hidden="true"
+>
+
+    <div class="image-viewer-backdrop"></div>
+
+    <div class="image-viewer-card">
+
+        <button
             id="closeImageViewer"
             class="viewer-close"
             type="button"
@@ -1000,13 +1178,4 @@
 
 </body>
 
-</html>
-     
-
-
-    
-    
-    
-
-
-    
+    </html>
